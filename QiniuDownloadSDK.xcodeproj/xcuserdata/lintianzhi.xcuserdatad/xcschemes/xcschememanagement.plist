@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>QiniuDownloadSDK-OSX.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>QiniuDownloadSDK-OSXTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>QiniuDownloadSDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>QiniuDownloadSDKTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>BA051BB01BD4BA1E000AECC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA2C304A1BD49228008F5640</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA2C306E1BD4972C008F5640</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA2C30801BD4B717008F5640</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
