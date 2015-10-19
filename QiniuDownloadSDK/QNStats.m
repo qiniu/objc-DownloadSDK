@@ -8,11 +8,11 @@
 
 #if TARGET_OS_IPHONE
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "Reachability.h"
 #endif
 
 #import "QNStats.h"
 #import "QNConfig.h"
-#import "Reachability.h"
 
 
 @interface QNStats ()
