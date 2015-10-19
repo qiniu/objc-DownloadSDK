@@ -11,6 +11,7 @@
 		3A19A70838DDE115FFA5E8A1 /* libPods-QiniuDownloadSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB2046E96438B5541F6369C /* libPods-QiniuDownloadSDKTests.a */; };
 		9B57FA16F218392BF7EFA0FE /* libPods-QiniuDownloadSDK-OSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8557EDA611A5FEC44A1EEFD /* libPods-QiniuDownloadSDK-OSXTests.a */; };
 		BAD6BEED1BD4EC5600370C48 /* QiniuDownloadSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF8E8F41BD4DDE400F63299 /* QiniuDownloadSDKTests.m */; };
+		BAD6BEF21BD543D100370C48 /* QiniuDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = BAD6BEF11BD543D100370C48 /* QiniuDownload.h */; settings = {ASSET_TAGS = (); }; };
 		BAF8E8F51BD4DDE400F63299 /* QiniuDownloadSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAF8E8F41BD4DDE400F63299 /* QiniuDownloadSDKTests.m */; };
 		BAF8E8F71BD4DDE400F63299 /* libQiniuDownloadSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF8E8E21BD4DD9A00F63299 /* libQiniuDownloadSDK.a */; settings = {ASSET_TAGS = (); }; };
 		BAF8E9131BD4DE2000F63299 /* libQiniuDownloadSDK-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF8E9011BD4DE0C00F63299 /* libQiniuDownloadSDK-OSX.dylib */; settings = {ASSET_TAGS = (); }; };
@@ -70,6 +71,7 @@
 		8EB66AD9CD931F49EBD4563D /* Pods-QiniuDownloadSDK-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiniuDownloadSDK-OSXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QiniuDownloadSDK-OSXTests/Pods-QiniuDownloadSDK-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
 		935913027F332B0DD9FD7B3B /* Pods-QiniuDownloadSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiniuDownloadSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-QiniuDownloadSDK/Pods-QiniuDownloadSDK.release.xcconfig"; sourceTree = "<group>"; };
 		9DEFC1D5C1C7AEB01EE66310 /* Pods-QiniuDownloadSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiniuDownloadSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QiniuDownloadSDKTests/Pods-QiniuDownloadSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BAD6BEF11BD543D100370C48 /* QiniuDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuDownload.h; sourceTree = "<group>"; };
 		BAF8E8E21BD4DD9A00F63299 /* libQiniuDownloadSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQiniuDownloadSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF8E8F21BD4DDE400F63299 /* QiniuDownloadSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiniuDownloadSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAF8E8F41BD4DDE400F63299 /* QiniuDownloadSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QiniuDownloadSDKTests.m; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				BAF8E9241BD4DEAE00F63299 /* QNConfig.h */,
 				BAF8E9251BD4DEAE00F63299 /* QNConfig.m */,
 				BAF8E9261BD4DEAE00F63299 /* QNDownloadManager.m */,
+				BAD6BEF11BD543D100370C48 /* QiniuDownload.h */,
 			);
 			path = QiniuDownloadSDK;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAF8E92A1BD4DEAE00F63299 /* QNDownloadTask.h in Headers */,
+				BAD6BEF21BD543D100370C48 /* QiniuDownload.h in Headers */,
 				BAF8E9271BD4DEAE00F63299 /* QNAsyncRun.h in Headers */,
 				BAF8E9311BD4DEAE00F63299 /* QNConfig.h in Headers */,
 				BAF8E92D1BD4DEAE00F63299 /* QNStats.h in Headers */,

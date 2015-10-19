@@ -1,8 +1,14 @@
 
-
 使用：
 
 ```
+platform :ios, '7.0'
+pod "QiniuDownload", "~> 1.0"
+```
+
+```
+#import "QiniuDownload.h"
+
         QNDownloadManager *manager = [[QNDownloadManager alloc] init];
         NSURL *URL = [NSURL URLWithString:@"http://example.com/download.zip"];
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];

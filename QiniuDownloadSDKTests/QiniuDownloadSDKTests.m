@@ -9,8 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <AGAsyncTestHelper.h>
 
-#import "QNConfig.h"
-#import "QNDownloadManager.h"
+#import "QiniuDownload.h"
 
 @interface QNDownloadTest : XCTestCase
 #if ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) &&__IPHONE_OS_VERSION_MAX_ALLOWED >= 70000) || ( defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_9)
