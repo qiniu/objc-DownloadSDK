@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target "QiniuDownloadSDK" do
   platform :ios, "6.0"
+  pod 'Reachability', '~> 3.2'
   pod 'AFNetworking', '~> 2.5.0'
   pod 'HappyDNS', '>= 0.2'
 end
@@ -15,6 +16,7 @@ end
 target "QiniuDownloadSDKTests" do
   platform :ios, "6.0"
   pod 'AGAsyncTestHelper/Shorthand'
+  pod 'Reachability', '~> 3.2'
   pod 'AFNetworking', '~> 2.5.0'
   pod 'HappyDNS', '>= 0.2'
 end
