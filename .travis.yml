@@ -1,0 +1,10 @@
+language: objective-c
+before_install:
+#  - brew update
+#  - brew upgrade xctool
+#  - gem install cocoapods
+before_script:
+  - export QINIU_TEST_ENV="travis"
+script:
+  - xctool -workspace QiniuSDK.xcworkspace -scheme "QiniuDownloadSDK" -sdk iphonesimulator -configuration Release test -test-sdk iphonesimulator6.0 -freshInstall -freshSimulator
+  - xctool -workspace QiniuSDK.xcworkspace -scheme "QiniuDownloadSDK-OSX" -sdk macosx -configuration Release test -test-sdk macosx
