@@ -7,12 +7,12 @@
 		<key>QiniuDownloadSDK-OSX.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>2</integer>
 		</dict>
 		<key>QiniuDownloadSDK-OSXTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>3</integer>
 		</dict>
 		<key>QiniuDownloadSDK.xcscheme</key>
 		<dict>
@@ -27,22 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>BA051BB01BD4BA1E000AECC3</key>
+		<key>BAF8E8E11BD4DD9A00F63299</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA2C304A1BD49228008F5640</key>
+		<key>BAF8E8F11BD4DDE400F63299</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA2C306E1BD4972C008F5640</key>
+		<key>BAF8E9001BD4DE0C00F63299</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA2C30801BD4B717008F5640</key>
+		<key>BAF8E90D1BD4DE2000F63299</key>
 		<dict>
 			<key>primary</key>
 			<true/>

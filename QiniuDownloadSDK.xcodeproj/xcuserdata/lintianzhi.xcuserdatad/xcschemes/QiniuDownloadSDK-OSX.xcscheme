@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BA2C30801BD4B717008F5640"
+               BlueprintIdentifier = "BAF8E9001BD4DE0C00F63299"
                BuildableName = "libQiniuDownloadSDK-OSX.dylib"
                BlueprintName = "QiniuDownloadSDK-OSX"
                ReferencedContainer = "container:QiniuDownloadSDK.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA2C30801BD4B717008F5640"
+            BlueprintIdentifier = "BAF8E9001BD4DE0C00F63299"
             BuildableName = "libQiniuDownloadSDK-OSX.dylib"
             BlueprintName = "QiniuDownloadSDK-OSX"
             ReferencedContainer = "container:QiniuDownloadSDK.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA2C30801BD4B717008F5640"
+            BlueprintIdentifier = "BAF8E9001BD4DE0C00F63299"
             BuildableName = "libQiniuDownloadSDK-OSX.dylib"
             BlueprintName = "QiniuDownloadSDK-OSX"
             ReferencedContainer = "container:QiniuDownloadSDK.xcodeproj">

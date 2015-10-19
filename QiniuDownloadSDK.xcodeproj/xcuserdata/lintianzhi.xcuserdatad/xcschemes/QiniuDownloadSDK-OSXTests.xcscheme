@@ -16,7 +16,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BA051BB01BD4BA1E000AECC3"
+               BlueprintIdentifier = "BAF8E90D1BD4DE2000F63299"
                BuildableName = "QiniuDownloadSDK-OSXTests.xctest"
                BlueprintName = "QiniuDownloadSDK-OSXTests"
                ReferencedContainer = "container:QiniuDownloadSDK.xcodeproj">
