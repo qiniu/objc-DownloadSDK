@@ -53,7 +53,6 @@
     NSLog(@"start download");
     for (int i = 0; i< 3; i++) {
         
-        
         QNDownloadTask *task = [_dnManager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
             
             NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
@@ -66,8 +65,8 @@
             if (error) {
                 dErr = [error copy];
             }
-            NSLog(@"download error: %@", error);
-            
+            NSLog(@"download error: %ld %@", (long)dErr.code, dErr.description);
+//            
             [_dnManager.statsManager pushStats];
             done = true;
             [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
@@ -76,7 +75,7 @@
     }
     
     AGWW_WAIT_WHILE(done==false, 60*30);
-    AGWW_WAIT_WHILE(_dnManager.statsManager.count != 1, 60);
+    AGWW_WAIT_WHILE(_dnManager.statsManager.count != 3, 60);
     
     XCTAssertNil(dErr, @"Pass");
     

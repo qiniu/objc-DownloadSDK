@@ -115,7 +115,7 @@ typedef enum {
 		[_stats setObject:[NSNumber numberWithInt:(int)(interval*1000)] forKey:@"dt"];
 		if ([ips count] == 0) {
 			// error;
-			// TODO
+            setStat(_stats, @"dnse", @"1");
 			return nil;
 		}
 
@@ -252,7 +252,7 @@ typedef enum {
          didResumeAtOffset:(int64_t)fileOffset
         expectedTotalBytes:(int64_t)expectedTotalBytes {
 
-	if (_progress == nil) {
+    if (_progress == nil) {
 		return;
 	}
 	_progress.totalUnitCount = expectedTotalBytes;
@@ -265,13 +265,19 @@ typedef enum {
                 totalBytesWritten:(int64_t)totalBytesWritten
         totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
+    if (bytesWritten == totalBytesWritten) {
+        setStat(_stats, @"fnb", [NSNumber numberWithLongLong:bytesWritten]);
+        long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
+        long long st = [[_stats valueForKey:@"st"] longLongValue];
+        NSNumber *fnbt = [NSNumber numberWithLongLong:(now - st)/1000000];
+        setStat(_stats, @"fnbt", fnbt);
+    }
 	if (_progress == nil) {
 		return;
 	}
 
 	_progress.totalUnitCount = totalBytesExpectedToWrite;
 	_progress.completedUnitCount = totalBytesWritten;
-
 }
 
 - (void)               URLSession:(NSURLSession *)session
@@ -296,7 +302,6 @@ typedef enum {
 			NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)downloadTask.response;
 			[_stats setObject:[NSNumber numberWithInteger:[httpResponse statusCode]] forKey:@"code"];
 
-			// ok 用于设定访问是否成功（未写到文档里面
 			[_stats setObject:@"1" forKey:@"ok"];
 
 			if ([httpResponse statusCode]/100 == 2) {
