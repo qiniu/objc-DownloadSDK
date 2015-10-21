@@ -115,7 +115,7 @@ typedef enum {
 		[_stats setObject:[NSNumber numberWithInt:(int)(interval*1000)] forKey:@"dt"];
 		if ([ips count] == 0) {
 			// error;
-            setStat(_stats, @"dnse", @"1");
+			setStat(_stats, @"dnse", @"1");
 			return nil;
 		}
 
@@ -252,7 +252,7 @@ typedef enum {
          didResumeAtOffset:(int64_t)fileOffset
         expectedTotalBytes:(int64_t)expectedTotalBytes {
 
-    if (_progress == nil) {
+	if (_progress == nil) {
 		return;
 	}
 	_progress.totalUnitCount = expectedTotalBytes;
@@ -265,13 +265,13 @@ typedef enum {
                 totalBytesWritten:(int64_t)totalBytesWritten
         totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
-    if (bytesWritten == totalBytesWritten) {
-        setStat(_stats, @"fnb", [NSNumber numberWithLongLong:bytesWritten]);
-        long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
-        long long st = [[_stats valueForKey:@"st"] longLongValue];
-        NSNumber *fnbt = [NSNumber numberWithLongLong:(now - st)/1000000];
-        setStat(_stats, @"fnbt", fnbt);
-    }
+	if (bytesWritten == totalBytesWritten) {
+		setStat(_stats, @"fnb", [NSNumber numberWithLongLong:bytesWritten]);
+		long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
+		long long st = [[_stats valueForKey:@"st"] longLongValue];
+		NSNumber *fnbt = [NSNumber numberWithLongLong:(now - st)/1000000];
+		setStat(_stats, @"fnbt", fnbt);
+	}
 	if (_progress == nil) {
 		return;
 	}
@@ -325,7 +325,7 @@ typedef enum {
 		[_manager.statsManager addStatics:_stats];
 	} else {
 		// 非法的数据不上报
-        _stats = nil;
+		_stats = nil;
 	}
 
 	// mv to expected location and call completionHandler

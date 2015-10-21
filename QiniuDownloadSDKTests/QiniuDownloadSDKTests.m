@@ -22,74 +22,74 @@
 @implementation QNDownloadTest
 
 - (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-    
+	[super setUp];
+	// Put setup code here. This method is called before the invocation of each test method in the class.
+
 #if ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) &&__IPHONE_OS_VERSION_MAX_ALLOWED >= 70000) || ( defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_9)
-    
-    
-    QNConfig *cfg = [[QNConfig alloc] init];
-    cfg.pushStatIntervalS = 1;
-    QNStats *stats = [[QNStats alloc] initWithConfiguration:cfg];
-    
-    _dnManager = [[QNDownloadManager alloc] initWithConfiguration:cfg statsManager:stats];
+
+
+	QNConfig *cfg = [[QNConfig alloc] init];
+	cfg.pushStatIntervalS = 1;
+	QNStats *stats = [[QNStats alloc] initWithConfiguration:cfg];
+
+	_dnManager = [[QNDownloadManager alloc] initWithConfiguration:cfg statsManager:stats];
 #endif
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+	// Put teardown code here. This method is called after the invocation of each test method in the class.
+	[super tearDown];
 }
 
 - (void)testDownload {
 #if ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) &&__IPHONE_OS_VERSION_MAX_ALLOWED >= 70000) || ( defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_9)
-    
-    NSURL *URL = [NSURL URLWithString:@"http://ztest.qiniudn.com/gogopher.jpg"];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    __block bool done = false;
-    __block NSError *dErr = nil;
-    
-    NSLog(@"start download");
-    for (int i = 0; i< 3; i++) {
-        
-        QNDownloadTask *task = [_dnManager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-            
-            NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-            NSURL *u = [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-            NSLog(@"targetPath: %@", targetPath);
-            NSLog(@"urll: %@", u.absoluteString);
-            return u;
-        } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-            NSLog(@"File downloaded to: %@", filePath);
-            if (error) {
-                dErr = [error copy];
-            }
-            NSLog(@"download error: %ld %@", (long)dErr.code, dErr.description);
-//            
-            [_dnManager.statsManager pushStats];
-            done = true;
-            [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
-        }];
-        [task resume];
-    }
-    
-    AGWW_WAIT_WHILE(done==false, 60*30);
-    AGWW_WAIT_WHILE(_dnManager.statsManager.count != 3, 60);
-    
-    XCTAssertNil(dErr, @"Pass");
-    
+
+	NSURL *URL = [NSURL URLWithString:@"http://ztest.qiniudn.com/gogopher.jpg"];
+
+	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+	__block bool done = false;
+	__block NSError *dErr = nil;
+
+	NSLog(@"start download");
+	for (int i = 0; i< 1; i++) {
+
+		QNDownloadTask *task = [_dnManager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+
+		                                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+		                                NSURL *u = [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+		                                NSLog(@"targetPath: %@", targetPath);
+		                                NSLog(@"urll: %@", u.absoluteString);
+		                                return u;
+					} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+		                                NSLog(@"File downloaded to: %@", filePath);
+		                                if (error) {
+		                                        dErr = [error copy];
+						}
+		                                NSLog(@"download error: %ld %@", (long)dErr.code, dErr.description);
+//
+		                                [_dnManager.statsManager pushStats];
+		                                done = true;
+		                                [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+					}];
+		[task resume];
+	}
+
+	AGWW_WAIT_WHILE(done==false, 60*30);
+	AGWW_WAIT_WHILE(_dnManager.statsManager.count != 1, 60);
+
+	XCTAssertNil(dErr, @"Pass");
+
 #endif
-    
+
 }
 
 /*
- - (void)testPerformanceExample {
- // This is an example of a performance test case.
- [self measureBlock:^{
- // Put the code you want to measure the time of here.
- }];
- }
+   - (void)testPerformanceExample {
+   // This is an example of a performance test case.
+   [self measureBlock:^{
+   // Put the code you want to measure the time of here.
+   }];
+   }
  */
 
 @end

@@ -56,8 +56,8 @@
 	self = [super init];
 
 	if (config == nil) {
-        config = [[QNConfig alloc]init];
-    }
+		config = [[QNConfig alloc]init];
+	}
 	_config = config;
 
 	_statsBuffer = [[NSMutableArray alloc] init];
@@ -165,14 +165,14 @@
 		[_bufLock unlock];
 
 		if ([reqs count]) {
-            long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
-            for (int i=0; i<[reqs count]; i++) {
-                NSMutableDictionary *stat = [[reqs objectAtIndex:i] mutableCopy];
-                long long st = [[stat valueForKey:@"st"] longLongValue];
-                NSNumber *pi = [NSNumber numberWithLongLong:(now - st)];
-                [stat setObject:pi forKey:@"pi"];
-                [reqs setObject:stat atIndexedSubscript:i];
-            }
+			long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
+			for (int i=0; i<[reqs count]; i++) {
+				NSMutableDictionary *stat = [[reqs objectAtIndex:i] mutableCopy];
+				long long st = [[stat valueForKey:@"st"] longLongValue];
+				NSNumber *pi = [NSNumber numberWithLongLong:(now - st)];
+				[stat setObject:pi forKey:@"pi"];
+				[reqs setObject:stat atIndexedSubscript:i];
+			}
 			NSDictionary *parameters = @{@"dev": _phoneModel, @"os": _systemName, @"sysv": _systemVersion,
 				                     @"app": _appName, @"appv": _appVersion,
 				                     @"reqs": reqs, @"v": @"0.1"};

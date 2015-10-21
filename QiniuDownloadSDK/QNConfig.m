@@ -12,19 +12,19 @@
 
 
 - (id) init {
-    
-    self = [super init];
-    
-    // init dns
-    id<QNResolverDelegate> r1 = [QNResolver systemResolver];
-    id<QNResolverDelegate> r2 = [[QNResolver alloc] initWithAddres:@"223.6.6.6"];
-    id<QNResolverDelegate> r3 = [[QNResolver alloc] initWithAddres:@"114.114.115.115"];
-    _dns = [[QNDnsManager alloc] init:[NSArray arrayWithObjects:r1,r2, r3, nil] networkInfo:[QNNetworkInfo normal ]];
-    
-    _statsHost = @"http://reportqos.qiniuapi.com";
-    _pushStatIntervalS = 60;
 
-    return self;
+	self = [super init];
+
+	// init dns
+	id<QNResolverDelegate> r1 = [QNResolver systemResolver];
+	id<QNResolverDelegate> r2 = [[QNResolver alloc] initWithAddres:@"223.6.6.6"];
+	id<QNResolverDelegate> r3 = [[QNResolver alloc] initWithAddres:@"114.114.115.115"];
+	_dns = [[QNDnsManager alloc] init:[NSArray arrayWithObjects:r1,r2, r3, nil] networkInfo:[QNNetworkInfo normal ]];
+
+	_statsHost = @"http://reportqos.qiniuapi.com";
+	_pushStatIntervalS = 60;
+
+	return self;
 }
 
 @end
