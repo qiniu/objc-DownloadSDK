@@ -19,7 +19,7 @@ typedef void (^QNURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 
 @class QNDownloadManager;
 
-@interface QNDownloadTask : NSObject<NSURLSessionDownloadDelegate>
+@interface QNDownloadTask : NSObject<NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 
 #if ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) &&__IPHONE_OS_VERSION_MAX_ALLOWED >= 70000) || ( defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_9)
 

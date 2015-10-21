@@ -1,4 +1,4 @@
-//
+
 //  QNDownloadTest.m
 //  QiniuSDK
 //
@@ -62,11 +62,8 @@
 		                                return u;
 					} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
 		                                NSLog(@"File downloaded to: %@", filePath);
-		                                if (error) {
-		                                        dErr = [error copy];
-						}
-		                                NSLog(@"download error: %ld %@", (long)dErr.code, dErr.description);
-//
+		                                NSLog(@"download error: %@", error);
+
 		                                [_dnManager.statsManager pushStats];
 		                                done = true;
 		                                [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];

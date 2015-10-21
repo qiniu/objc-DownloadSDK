@@ -176,7 +176,7 @@
 			NSDictionary *parameters = @{@"dev": _phoneModel, @"os": _systemName, @"sysv": _systemVersion,
 				                     @"app": _appName, @"appv": _appVersion,
 				                     @"reqs": reqs, @"v": @"0.1"};
-
+			NSLog(@"stats: %@", reqs);
 			NSURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[_config.statsHost stringByAppendingString:@"/v1/stats"] parameters:parameters error:nil];
 
 			AFHTTPRequestOperation *operation = [_httpManager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -195,7 +195,6 @@
 	[_httpManager GET:[_config.statsHost stringByAppendingString:@"/v1/ip"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 	         NSDictionary *rst = (NSDictionary *)responseObject;
 	         _sip = [rst valueForKey:@"ip"];
-	         NSLog(@"sip: %@\n", _sip);
 	 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 	         NSLog(@"get ip failed: %@", error);
 	 }];

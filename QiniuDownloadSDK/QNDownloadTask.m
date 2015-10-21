@@ -39,6 +39,23 @@ BOOL isValidIPAddress(NSString *ip) {
 	return success == 1;
 }
 
+NSString *errorFromDesc(NSString *desc) {
+	if ([desc isEqualToString:@"Could not connect to the server."]) {
+		return @"ErrConnectFailed";
+	}
+	if ([desc isEqualToString:@"The network connection was lost."]) {
+		return @"ErrBrokenConnection";
+	}
+	if ([desc isEqualToString:@"A server with the specified hostname could not be found."]) {
+		return @"ErrDomainNotFound";
+	}
+	if ([desc isEqualToString:@"The request timed out."]) {
+		return @"ErrTimeout";
+	}
+	NSLog(@"unknown: %@", desc);
+	return @"ErrUnknown";
+}
+
 typedef enum {
 	TaskFailed = 0,
 	TaskNotStarted,
@@ -133,7 +150,6 @@ typedef enum {
 
 	} else {
 		setStat(_stats, @"ip", host);
-
 	}
 
 	return request;
@@ -145,6 +161,7 @@ typedef enum {
 	if (newRequest == nil) {
 		newRequest = request;
 	}
+
 
 	NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
 
@@ -229,6 +246,7 @@ typedef enum {
 
 		[_lock unlock];
 
+		setStat(_stats, @"sip", _manager.statsManager.sip);
 		[_realTask resume];
 	});
 
@@ -247,6 +265,19 @@ typedef enum {
 	[_realTask suspend];
 }
 
+- (void)          URLSession:(NSURLSession * _Nonnull)session
+                        task:(NSURLSessionTask * _Nonnull)task
+        didCompleteWithError:(NSError * _Nullable)error {
+
+	if (!error) {
+		return;
+	}
+	setStat(_stats, @"rst", errorFromDesc([error localizedDescription]));
+	[_stats removeObjectForKey:@"invalid"];
+	[_manager.statsManager addStatics:_stats];
+
+	_completionHandler(nil, nil, error);
+}
 - (void)        URLSession:(NSURLSession *)session
               downloadTask:(NSURLSessionDownloadTask *)downloadTask
          didResumeAtOffset:(int64_t)fileOffset
@@ -284,12 +315,12 @@ typedef enum {
                      downloadTask:(NSURLSessionDownloadTask *)downloadTask
         didFinishDownloadingToURL:(NSURL *)location {
 
+	NSHTTPURLResponse *httpResponse = nil;
+	if (downloadTask.response != nil) {
+		httpResponse = (NSHTTPURLResponse *)downloadTask.response;
+	}
 	if (![_stats objectForKey:@"invalid"]) {
 		// update stats
-
-		// 记录本地出口IP
-		setStat(_stats, @"sip", _manager.statsManager.sip);
-
 
 		// costed time
 		long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
@@ -299,10 +330,9 @@ typedef enum {
 
 		// size
 		if (downloadTask.response != nil) {
-			NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)downloadTask.response;
 			[_stats setObject:[NSNumber numberWithInteger:[httpResponse statusCode]] forKey:@"code"];
 
-			[_stats setObject:@"1" forKey:@"ok"];
+			[_stats setObject:@"success" forKey:@"rst"];
 
 			if ([httpResponse statusCode]/100 == 2) {
 				if (httpResponse.expectedContentLength != NSURLResponseUnknownLength) {
@@ -318,26 +348,35 @@ typedef enum {
 			}
 
 		} else {
-			[_stats setObject:@"0" forKey:@"ok"];
+			[_stats setObject:@"error" forKey:@"rst"];
 		}
 
-		//NSLog(@"stats: %@", _stats);
 		[_manager.statsManager addStatics:_stats];
 	} else {
 		// 非法的数据不上报
 		_stats = nil;
 	}
 
+	if (downloadTask.response == nil) {
+		_completionHandler(nil, nil, [NSError errorWithDomain:@"qiniu" code:98 userInfo: @{@"error": @"no response"}]);
+		return;
+	}
+	if ([httpResponse statusCode]/100 != 2) {
+		_completionHandler(downloadTask.response, nil, [NSError errorWithDomain:@"qiniu" code:99 userInfo: @{@"code": [NSNumber numberWithInteger:[httpResponse statusCode]]}]);
+		return;
+	}
 	// mv to expected location and call completionHandler
 	NSURL *mvDestination = location;
 	if (_destination) {
-		NSError *fileManagerError = nil;
 		mvDestination = _destination(location, downloadTask.response);
 		if (mvDestination) {
+			NSError *fileManagerError = nil;
 			[[NSFileManager defaultManager] moveItemAtPath:location toPath:mvDestination error:&fileManagerError];
 
 			if (fileManagerError) {
-				_completionHandler(downloadTask.response, mvDestination, fileManagerError);
+				NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[fileManagerError userInfo]];
+				NSError *newError = [NSError errorWithDomain:[fileManagerError domain] code:97 userInfo:dic];
+				_completionHandler(downloadTask.response, mvDestination, newError);
 
 				return;
 			}
