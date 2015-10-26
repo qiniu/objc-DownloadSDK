@@ -38,7 +38,8 @@
 
 - (void) addStatics: (NSMutableDictionary *) stat;
 - (void) pushStats;
-- (void) getOutIp;
+- (NSString *) getSIP;
+- (NSString *) getNetType;
 
 @property int count;
 

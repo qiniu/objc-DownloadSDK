@@ -208,15 +208,7 @@ typedef enum {
 		// 产生task的过程中会需要去查询DNS，所以用异步操作
 		_realTask = [self generateDownloadTask:_oldRequest];
 
-#if TARGET_OS_IPHONE
-		if (_manager.statsManager.reachabilityStatus == ReachableViaWiFi) {
-		        [_stats setObject:@"wifi" forKey:@"net"];
-		} else if (_manager.statsManager.reachabilityStatus == ReachableViaWWAN) {
-		        [_stats setObject:@"wan" forKey:@"net"];
-		}
-#elif TARGET_OS_MAC
-		[_stats setObject:@"wifi" forKey:@"net"];
-#endif
+		setStat(_stats, @"net", [_manager.statsManager getNetType]);
 
 		[_lock lock];
 
@@ -246,7 +238,7 @@ typedef enum {
 
 		[_lock unlock];
 
-		setStat(_stats, @"sip", _manager.statsManager.sip);
+		setStat(_stats, @"sip", [_manager.statsManager getSIP]);
 		[_realTask resume];
 	});
 

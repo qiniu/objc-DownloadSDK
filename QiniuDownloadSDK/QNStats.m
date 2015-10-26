@@ -200,6 +200,27 @@
 	 }];
 }
 
+
+- (NSString *) getSIP {
+
+	return _sip;
+}
+
+- (NSString *) getNetType {
+#if TARGET_OS_IPHONE
+	if (_reachabilityStatus == ReachableViaWiFi) {
+		return @"wifi";
+	} else if (_reachabilityStatus == ReachableViaWWAN) {
+		return @"wan";
+	}
+#elif TARGET_OS_MAC
+	return @"wifi";
+#endif
+
+	return @"";
+}
+
+
 #endif
 
 @end
