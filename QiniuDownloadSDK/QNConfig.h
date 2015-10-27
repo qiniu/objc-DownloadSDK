@@ -14,8 +14,11 @@
 @interface QNConfig : NSObject
 
 - (id) init;
+- (void) setDropRate:(float)rate;
+- (void) setPushIntervalS:(uint) interval;
 
-@property int pushStatIntervalS;
+@property int pushDropRate;
+@property uint pushStatIntervalS;
 @property (nonatomic) NSString *statsHost;
 @property (nonatomic) QNDnsManager *dns;
 

@@ -29,7 +29,9 @@
 
 
 	QNConfig *cfg = [[QNConfig alloc] init];
-	cfg.pushStatIntervalS = 1;
+	cfg.statsHost = @"http://192.168.210.97:2334";
+	[cfg setPushDropRate:0];
+	[cfg setPushIntervalS:1];
 	QNStats *stats = [[QNStats alloc] initWithConfiguration:cfg];
 
 	_dnManager = [[QNDownloadManager alloc] initWithConfiguration:cfg statsManager:stats];
@@ -64,7 +66,6 @@
 		                                NSLog(@"File downloaded to: %@", filePath);
 		                                NSLog(@"download error: %@", error);
 
-		                                [_dnManager.statsManager pushStats];
 		                                done = true;
 		                                [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
 					}];

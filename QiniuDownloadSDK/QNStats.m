@@ -11,6 +11,8 @@
 #import "Reachability.h"
 #endif
 
+#include <stdlib.h>
+#import "GZIP.h"
 #import "QNStats.h"
 #import "QNConfig.h"
 
@@ -149,6 +151,11 @@
 	[_bufLock unlock];
 }
 
+- (BOOL) shouldDrop {
+	int r = arc4random_uniform(100);
+	return r < _config.pushDropRate;
+}
+
 - (void) pushStats {
 
 	@synchronized(self) {
@@ -160,11 +167,22 @@
 #endif
 
 		[_bufLock lock];
-		NSMutableArray *reqs = [[NSMutableArray alloc] initWithArray:_statsBuffer copyItems:YES];
+		if ([_statsBuffer count] == 0) {
+			[_bufLock unlock];
+			return;
+		}
+		NSMutableArray *reqs = [[NSMutableArray alloc] init];
+		for (int i=0; i<[_statsBuffer count]; i++) {
+			if ([self shouldDrop]) {
+				continue;
+			}
+			[reqs addObject:[_statsBuffer objectAtIndex:i]];
+		}
+		//NSMutableArray *reqs = [[NSMutableArray alloc] initWithArray:_statsBuffer copyItems:YES];
 		[_statsBuffer removeAllObjects];
 		[_bufLock unlock];
 
-		if ([reqs count]) {
+		if ([reqs count] != 0) {
 			long long now = (long long)([[NSDate date] timeIntervalSince1970]* 1000000000);
 			for (int i=0; i<[reqs count]; i++) {
 				NSMutableDictionary *stat = [[reqs objectAtIndex:i] mutableCopy];
@@ -176,8 +194,18 @@
 			NSDictionary *parameters = @{@"dev": _phoneModel, @"os": _systemName, @"sysv": _systemVersion,
 				                     @"app": _appName, @"appv": _appVersion,
 				                     @"reqs": reqs, @"v": @"0.1"};
-			NSLog(@"stats: %@", reqs);
-			NSURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[_config.statsHost stringByAppendingString:@"/v1/stats"] parameters:parameters error:nil];
+			//NSLog(@"stats: %@", reqs);
+			NSData *data = [NSJSONSerialization dataWithJSONObject:parameters options:kNilOptions error:nil];
+			data = [data gzippedDataWithCompressionLevel:0.7];
+//			NSURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[_config.statsHost stringByAppendingString:@"/v1/stats"] parameters:parameters error:nil];
+			NSMutableURLRequest *req = [[NSMutableURLRequest alloc] init];
+
+			[req setHTTPMethod:@"POST"];
+			[req setURL:[NSURL URLWithString:[_config.statsHost stringByAppendingString:@"/v1/stats"]]];
+			[req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+			[req setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[data length]] forHTTPHeaderField:@"Content-Length"];
+			[req setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+			[req setHTTPBody:data];
 
 			AFHTTPRequestOperation *operation = [_httpManager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			                                             _count += [reqs count];

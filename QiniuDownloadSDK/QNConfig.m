@@ -22,11 +22,22 @@
 	_dns = [[QNDnsManager alloc] init:[NSArray arrayWithObjects:r1,r2, r3, nil] networkInfo:[QNNetworkInfo normal ]];
 
 	_statsHost = @"http://reportqos.qiniuapi.com";
-	//_statsHost = @"http://192.168.210.97:2334";
 
-	_pushStatIntervalS = 60;
+	_pushDropRate = 30;
+	_pushStatIntervalS = 300;
 
 	return self;
 }
+
+- (void) setDropRate:(float)rate {
+
+	_pushDropRate = (int)(rate*100);
+
+}
+- (void) setPushIntervalS:(uint) interval {
+
+	_pushStatIntervalS = interval;
+}
+
 
 @end
