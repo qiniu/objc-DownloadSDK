@@ -5,8 +5,8 @@
 
 ### 原理：
 
-SDK封装了`NSURLSessionDownloadTask`，
-也就是说在在使用SDK的时候只需要把原来创建`NSURLSessionDownloadTask`的地方修改成从这个SDK创建出一个对应的task就可以，具体的函数如下。
+SDK提供了和`AFNetworking`一样的创建downloadTask的函数，封装了`NSURLSessionDownloadTask`， 
+也就是说在在使用SDK的时候只需要把原来创建`NSURLSessionDownloadTask`的地方修改成从这个SDK创建出一个对应的task就可以，具体的函数见下面的使用
 
 客户通过SDK下载的时候，会在SDK内部的各个地方获取本次下载相关的数据（不包含于用户或者app相关的任何隐私数据），丢到一个数组里面。
 SDK内部会定时触发一个push操作，把搜集到的数据通过gzip压缩发送到服务器。之后用户可以通过七牛提供的查询页面查询自己的下载统计，或者设置监控。
