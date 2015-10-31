@@ -193,7 +193,7 @@
 			}
 			NSDictionary *parameters = @{@"dev": _phoneModel, @"os": _systemName, @"sysv": _systemVersion,
 				                     @"app": _appName, @"appv": _appVersion,
-				                     @"reqs": reqs, @"v": @"0.1"};
+				                     @"stats": reqs, @"v": @"0.1"};
 			//NSLog(@"stats: %@", reqs);
 			NSData *data = [NSJSONSerialization dataWithJSONObject:parameters options:kNilOptions error:nil];
 			data = [data gzippedDataWithCompressionLevel:0.7];

@@ -29,7 +29,9 @@
 
 
 	QNConfig *cfg = [[QNConfig alloc] init];
-	cfg.statsHost = @"http://192.168.210.97:2334";
+	//cfg.statsHost = @"http://192.168.210.97:2334"; //
+	cfg.statsHost = @"http://192.168.199.202:2334"; // home
+	cfg.statsHost = @"http://reportqos.qiniuapi.com";
 	[cfg setPushDropRate:0];
 	[cfg setPushIntervalS:1];
 	QNStats *stats = [[QNStats alloc] initWithConfiguration:cfg];

@@ -324,7 +324,7 @@ typedef enum {
 		if (downloadTask.response != nil) {
 			[_stats setObject:[NSNumber numberWithInteger:[httpResponse statusCode]] forKey:@"code"];
 
-			[_stats setObject:@"success" forKey:@"rst"];
+			[_stats setObject:@"Success" forKey:@"rst"];
 
 			if ([httpResponse statusCode]/100 == 2) {
 				if (httpResponse.expectedContentLength != NSURLResponseUnknownLength) {
