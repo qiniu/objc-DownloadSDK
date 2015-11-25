@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.ios.dependency 'Reachability', '~> 3.2'
   s.dependency 'AFNetworking', '~> 2.0'
   s.dependency 'HappyDNS', '~> 0.2'
+  s.dependency 'GZIP', '~> 1.1'
   s.license = { :type => 'MIT', :text => <<-LICENSE
 The MIT License (MIT)
 
