@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'QiniuDownload'
-  s.version      = '1.2.0'
+  s.version      = '1.2.1'
   s.summary      = 'Qiniu Resource Storage Download SDK for iOS and Mac'
   s.homepage     = 'https://github.com/qiniu/objc-DownloadSDK'
   s.social_media_url = 'http://weibo.com/qiniutek'
